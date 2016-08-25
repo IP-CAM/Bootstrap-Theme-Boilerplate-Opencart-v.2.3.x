@@ -17,15 +17,15 @@ var paths = {
     dist: 'dist/',
     styles: {
         source: 'styles/main.scss',
-        dist: './styles'
+        dist: 'styles'
     },  
     scripts: {
         source: 'scripts/*.js',
-        dist: './scripts'
+        dist: 'scripts'
     },
     images: {
         source: 'images/*',
-        dist: './images'
+        dist: 'images'
     }
 };
 
