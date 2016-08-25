@@ -4,7 +4,7 @@
     <div>Chinese customers please click Pilibaba button to complete checkout</div>
   </div>
 
-  <a href="<?php echo $payment_url; ?>" title="Pilibaba" class="pilibaba-button"><img src="catalog/view/theme/opencart-theme-boilerplate/image/pilibaba_button.png" alt="Pilibaba" title="Pilibaba"></a>
+  <a href="<?php echo $payment_url; ?>" title="Pilibaba" class="pilibaba-button"><img src="catalog/view/theme/opencart-theme-boilerplate/dist/images/pilibaba_button.png" alt="Pilibaba" title="Pilibaba"></a>
 </div>
 
 <style>

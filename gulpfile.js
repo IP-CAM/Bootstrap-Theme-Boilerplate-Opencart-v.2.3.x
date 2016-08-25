@@ -1,12 +1,12 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var imagemin = require('gulp-imagemin');
-var sourcemaps = require('gulp-sourcemaps');
+var gulp         = require('gulp');
+var sass         = require('gulp-sass');
+var concat       = require('gulp-concat');
+var uglify       = require('gulp-uglify');
+var imagemin     = require('gulp-imagemin');
+var sourcemaps   = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync').create();
-var runSequence = require('run-sequence');
+var browserSync  = require('browser-sync').create();
+var runSequence  = require('run-sequence');
 
 var config = {
     devUrl: 'localhost/'
@@ -14,17 +14,18 @@ var config = {
 
 var paths = {
     base: 'assets/',
+    dist: 'dist/',
     styles: {
         source: 'styles/main.scss',
-        dest: './stylesheet'
+        dist: './styles'
     },  
     scripts: {
         source: 'scripts/*.js',
-        dest: './scripts'
+        dist: './scripts'
     },
     images: {
         source: 'images/*',
-        dest: './image'
+        dist: './images'
     }
 };
 
@@ -39,7 +40,7 @@ gulp.task('styles', function() {
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
         .pipe(autoprefixer(autoprefixerOptions))
-        .pipe(gulp.dest(paths.styles.dest))
+        .pipe(gulp.dest(paths.dist + paths.styles.dist))
         .pipe(browserSync.stream());    
 });
 
@@ -50,7 +51,7 @@ gulp.task('scripts', function() {
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.scripts.dest))
+        .pipe(gulp.dest(paths.dist + paths.scripts.dist))
         .pipe(browserSync.stream());
 });
 
@@ -61,12 +62,12 @@ gulp.task('images', function() {
             interlaced: true,
             svgoPlugins: [{removeUnknownsAndDefaults: false}, {cleanupIDs: false}]
         }))
-        .pipe(gulp.dest(paths.images.dest))
+        .pipe(gulp.dest(paths.dist + paths.images.dist))
         .pipe(browserSync.stream());    
 });
 
 gulp.task('clean', function() {
-    return require('del').bind(null, ['image', 'stylesheet', 'scripts']);
+    return require('del')(paths.dist);
 });
 
 gulp.task('build', function(callback) {
