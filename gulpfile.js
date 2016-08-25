@@ -12,7 +12,19 @@ var config = {
 };
 
 var paths = {
-    base: 'assets/'
+    base: 'assets/',
+    styles: {
+        source: 'styles/main.scss',
+        dest: './stylesheet'
+    },
+    scripts: {
+        source: 'scripts/*.js',
+        dest: './scripts'
+    },
+    images: {
+        source: 'images/*',
+        dest: './image'
+    }
 };
 
 var autoprefixerOptions = {
@@ -21,38 +33,40 @@ var autoprefixerOptions = {
 
 gulp.task('styles', function() {
     return gulp
-        .src(paths.base + 'styles/main.scss')
+        .src(paths.base + paths.styles.source)
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
         .pipe(autoprefixer(autoprefixerOptions))
-        .pipe(gulp.dest('./stylesheet'))
+        .pipe(gulp.dest(paths.styles.dest))
         .pipe(browserSync.stream());    
 });
 
 gulp.task('scripts', function() {
     return gulp
-        .src(paths.base + 'scripts/*.js')
+        .src(paths.base + paths.scripts.source)
         .pipe(sourcemaps.init())
         .pipe(concat('app.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./scripts'))
+        .pipe(gulp.dest(paths.scripts.dest))
         .pipe(browserSync.stream());
 });
 
 gulp.task('images', function() {
-    return gulp.src(paths.base + 'images/*')
+    return gulp.src(paths.base + paths.images.source)
         .pipe(imagemin({
             progressive: true,
             interlaced: true,
             svgoPlugins: [{removeUnknownsAndDefaults: false}, {cleanupIDs: false}]
         }))
-        .pipe(gulp.dest('./image'))
+        .pipe(gulp.dest(paths.images.dest))
         .pipe(browserSync.stream());    
 });
 
-gulp.task('build', ['images', 'styles', 'scripts']);
+gulp.task('clean', require('del').bind(null, ['image', 'stylesheet', 'scripts']));
+
+gulp.task('build', ['clean', 'images', 'styles', 'scripts']);
 
 gulp.task('start', ['build'], function() {
     browserSync.init({
