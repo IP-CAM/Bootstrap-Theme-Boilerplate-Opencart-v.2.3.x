@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
+var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
@@ -40,7 +41,18 @@ gulp.task('scripts', function() {
         .pipe(browserSync.stream());
 });
 
-gulp.task('build', ['styles', 'scripts']);
+gulp.task('images', function() {
+    return gulp.src(paths.base + 'images/*')
+        .pipe(imagemin({
+            progressive: true,
+            interlaced: true,
+            svgoPlugins: [{removeUnknownsAndDefaults: false}, {cleanupIDs: false}]
+        }))
+        .pipe(gulp.dest('./image'))
+        .pipe(browserSync.stream());    
+});
+
+gulp.task('build', ['images', 'styles', 'scripts']);
 
 gulp.task('start', ['build'], function() {
     browserSync.init({
@@ -48,6 +60,7 @@ gulp.task('start', ['build'], function() {
         proxy: config.devUrl
     });
 
+    gulp.watch(paths.base + 'images/*', ['images']);
     gulp.watch(paths.base + 'styles/**/*.scss', ['styles']);
     gulp.watch(paths.base + 'scripts/*.js', ['scripts']);
 })
