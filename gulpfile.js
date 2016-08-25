@@ -11,7 +11,7 @@ var config = {
 };
 
 var paths = {
-    base: 'source/'
+    base: 'assets/'
 };
 
 var autoprefixerOptions = {
