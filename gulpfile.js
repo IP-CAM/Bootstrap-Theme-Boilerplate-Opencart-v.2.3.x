@@ -6,6 +6,7 @@ var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
+var runSequence = require('run-sequence');
 
 var config = {
     devUrl: 'localhost/'
@@ -16,7 +17,7 @@ var paths = {
     styles: {
         source: 'styles/main.scss',
         dest: './stylesheet'
-    },
+    },  
     scripts: {
         source: 'scripts/*.js',
         dest: './scripts'
@@ -28,7 +29,7 @@ var paths = {
 };
 
 var autoprefixerOptions = {
-    browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
+    browsers: ['last 2 versions', '> 1%', 'Firefox ESR']
 };
 
 gulp.task('styles', function() {
@@ -64,9 +65,17 @@ gulp.task('images', function() {
         .pipe(browserSync.stream());    
 });
 
-gulp.task('clean', require('del').bind(null, ['image', 'stylesheet', 'scripts']));
+gulp.task('clean', function() {
+    return require('del').bind(null, ['image', 'stylesheet', 'scripts']);
+});
 
-gulp.task('build', ['clean', 'images', 'styles', 'scripts']);
+gulp.task('build', function(callback) {
+    runSequence(
+        'clean',
+        ['images', 'styles', 'scripts'],
+        callback
+    );
+});
 
 gulp.task('start', ['build'], function() {
     browserSync.init({
@@ -77,4 +86,4 @@ gulp.task('start', ['build'], function() {
     gulp.watch(paths.base + 'images/*', ['images']);
     gulp.watch(paths.base + 'styles/**/*.scss', ['styles']);
     gulp.watch(paths.base + 'scripts/*.js', ['scripts']);
-})
+});
