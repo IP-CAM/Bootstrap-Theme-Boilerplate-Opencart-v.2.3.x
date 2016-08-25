@@ -44,6 +44,7 @@ gulp.task('build', ['styles', 'scripts']);
 
 gulp.task('start', ['build'], function() {
     browserSync.init({
+        files: ['{template}/**/*.tpl', '*.tpl'],
         proxy: config.devUrl
     });
 
