@@ -1,6 +1,6 @@
 Opencart theme boilerplate
 ================== 
-This is Opencart starter theme based on Gulp, Browsersync and NPM. I hope it will make your theme development easier.
+This is Opencart starter theme based on default opencart theme built with Gulp, Browsersync and NPM. I hope it will make your theme development easier.
 
 Tested on Opencart 2.3.0.
 
