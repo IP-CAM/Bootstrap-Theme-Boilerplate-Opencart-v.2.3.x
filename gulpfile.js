@@ -1,8 +1,14 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
+
+var config = {
+    devUrl: 'localhost/'
+};
 
 var paths = {
     base: 'source/'
@@ -23,16 +29,24 @@ gulp.task('styles', function() {
         .pipe(browserSync.stream());    
 });
 
-gulp.task('watch', function() {
-    gulp.watch(paths.base + 'styles/**/*.scss', ['styles']);
+gulp.task('scripts', function() {
+    return gulp
+        .src(paths.base + 'scripts/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(concat('app.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./scripts'))
+        .pipe(browserSync.stream());
 });
 
-gulp.task('build', ['styles']);
+gulp.task('build', ['styles', 'scripts']);
 
 gulp.task('start', ['build'], function() {
     browserSync.init({
-        proxy: 'localhost/'
+        proxy: config.devUrl
     });
 
     gulp.watch(paths.base + 'styles/**/*.scss', ['styles']);
+    gulp.watch(paths.base + 'scripts/*.js', ['scripts']);
 })
