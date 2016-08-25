@@ -1,0 +1,13 @@
+{
+  "name": "opencart-theme-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for opencart themes",
+  "author": "Szymon Kabelis",
+  "devDependencies": {
+    "browser-sync": "^2.14.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0"
+  }
+}
