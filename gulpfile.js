@@ -5,6 +5,7 @@ var uglify       = require('gulp-uglify');
 var imagemin     = require('gulp-imagemin');
 var sourcemaps   = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
+var del          = require('del');
 var browserSync  = require('browser-sync').create();
 var runSequence  = require('run-sequence');
 
@@ -67,7 +68,7 @@ gulp.task('images', function() {
 });
 
 gulp.task('clean', function() {
-    return require('del')(paths.dist);
+    return del(paths.dist);
 });
 
 gulp.task('build', function(callback) {
