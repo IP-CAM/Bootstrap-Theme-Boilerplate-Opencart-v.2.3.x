@@ -89,3 +89,7 @@ gulp.task('start', ['build'], function() {
     gulp.watch(paths.base + 'styles/**/*.scss', ['styles']);
     gulp.watch(paths.base + 'scripts/*.js', ['scripts']);
 });
+
+gulp.task('default', function() {
+    gulp.start('build');
+});
