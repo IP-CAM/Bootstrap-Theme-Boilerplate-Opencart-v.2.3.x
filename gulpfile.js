@@ -99,8 +99,8 @@ gulp.task('clean', function() {
 
 /**
  * Gulp 'start' task - using browserSync to synchronize code
- * changes with devices. Watch the assets for changes, run
- * specific task for these and inject changes to page.
+ * changes with devices. Watch the assets and template files for
+ * changes, run specific task for these and inject changes to page.
  * config.devUrl can be changed in the top of the file
  */
 gulp.task('start', ['build'], function() {
