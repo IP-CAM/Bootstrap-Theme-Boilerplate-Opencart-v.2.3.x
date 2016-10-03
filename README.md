@@ -14,6 +14,6 @@ Installing theme:
 4. Enter theme folder in terminal and type "gulp start"
 5. Your theme should work, congratz
 
-see ths: http://forum.opencart.com/viewtopic.php?f=190&t=159284
+see this if you want to build separate theme: http://forum.opencart.com/viewtopic.php?f=190&t=159284
 
-todo: write some documentation, especially in gulpfile folder, write some specifications and requirements
+todo: write some documentation, create CLI options(-p for production), write some specifications and requirements

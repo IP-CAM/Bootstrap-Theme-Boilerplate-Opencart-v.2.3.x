@@ -1,7 +1,5 @@
 /** 
  * Global gulp variables
- * Todo: create CLI configuration:
- * -p - production options
  */
 var gulp         = require('gulp');
 var $            = require('gulp-load-plugins')();
